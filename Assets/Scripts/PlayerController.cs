@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float JumpForce = 10f;
     public float GravityModifier = 1f;
     public bool IsOnGround = true;
+    public bool IsGameOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.Space))
         if (Input.GetKeyDown(KeyCode.Space) && IsOnGround)
         {
+            print("up");
             _playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             IsOnGround = false;
         }
@@ -33,6 +35,10 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             IsOnGround = true;       
-        }            
+        }
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {           
+            IsGameOver = true;
+        }
     }
 }
